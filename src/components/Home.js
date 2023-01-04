@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import 'foundation-sites';
 import { getHome } from '../features/home/thunks/getHome';
-import Banner from './banners/Banner';
-import BoxInfo from './boxInfo/BoxInfo';
+import TopBar from './topbar/TopBar';
 
 function Home() {
   const home = useSelector((state) => state.home);
@@ -13,13 +13,8 @@ function Home() {
   }, [])
 
   if (home.loaded){
-    const { mainBanner, infoBoxes } = home.data;
     return <>
-            <Banner title={ mainBanner.title }
-                    images= {mainBanner.images }
-                    type={ mainBanner.type }>
-            </Banner>
-            <BoxInfo boxes={infoBoxes}></BoxInfo>
+            <TopBar></TopBar>
           </>
   }else{
     return (

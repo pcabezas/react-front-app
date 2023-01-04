@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { loginUser } from "../../features/authentication/thunks/loginUser";
+import { getUser } from "../../features/authentication/thunks/getUser";
 
 const Login = () => {
   const [ formState, setFormState ] = useState({email: '', password: ''});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit = (event) => {
+  const onSubmit = async(event) => {
     event.preventDefault();
-    dispatch(loginUser(formState.email, formState.password));
+    const response = await dispatch(loginUser(formState.email, formState.password));
+    if(response){
+      dispatch(getUser())
+      navigate('/');
+    }else{
+      console.log('error', response)
+    }
   }
 
   const onInputChange = ({ target }) => {

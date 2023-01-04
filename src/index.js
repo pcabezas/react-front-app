@@ -1,17 +1,21 @@
 import 'foundation-sites/dist/css/foundation.min.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
-import Home from './components/Home';
-import store from './stores/store';
 
+import store from './stores/store';
+import { AppRouter } from './routes/root';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Home />
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );
