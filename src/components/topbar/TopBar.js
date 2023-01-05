@@ -5,7 +5,7 @@ import $ from "jquery";
 
 const TopBar = () => {
   const login = useSelector((state) => state.auth || {})
-  const { isLoggedIn = false } = login
+  const { isLoggedIn = false, user } = login
 
   useEffect( () => {
     $(document).foundation();
@@ -13,16 +13,8 @@ const TopBar = () => {
 
   return <div className="top-bar">
             <div className="top-bar-left">
-              <ul className="dropdown menu" id="mydropdown" data-dropdown-menu>
+              <ul className="menu" id="mydropdown">
                 <li className="menu-text">Site Title</li>
-                <li>
-                  <a href="#">One</a>
-                  <ul className="menu vertical">
-                    <li><a href="#">One</a></li>
-                    <li><a href="#">Two</a></li>
-                    <li><a href="#">Three</a></li>
-                  </ul>
-                </li>
                 <li><a href="#">Two</a></li>
                 <li><a href="#">Three</a></li>
               </ul>
@@ -31,14 +23,19 @@ const TopBar = () => {
               {
                 isLoggedIn ?
                 <>
-                  <ul className="menu">
-                    <li>Logeado || {`${ isLoggedIn }`}</li>
+                  <ul className="dropdown menu" data-dropdown-menu>
+                    <li>
+                      <a href="#">{ user.attributes.email }</a>
+                      <ul class="menu">
+                        <li><Link to={'/logout'}>Logout</Link></li>
+                      </ul>
+                    </li>
                   </ul>
                 </>
                 :
                 <>
-                  <ul className="menu">
-                    <Link to={'/login'}>Login</Link>
+                  <ul className="menu vertical">
+                    <li><Link to={'/login'}>Login</Link></li>
                   </ul>
                 </>
               }
